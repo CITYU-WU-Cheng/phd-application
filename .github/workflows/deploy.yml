@@ -5,12 +5,14 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      contents: write
 
     steps:
       - name: Checkout code
@@ -22,24 +24,21 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: "0.152.2"
+          hugo-version: "0.152.0"
           extended: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "25.2.1"
+          node-version: "20"
 
       - name: Install npm dependencies
         run: npm ci
 
       - name: Build Hugo site
         run: |
-          hugo -b https://aafu.darshanbaral.com/
+          hugo -b https://CITYU-WU-Cheng.github.io/phd-application/
           npx -y pagefind --site public
-
-      - name: Add CNAME file for custom domain
-        run: echo "aafu.darshanbaral.com" > public/CNAME
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

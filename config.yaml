@@ -1,4 +1,4 @@
-baseURL: /
+baseURL: "https://CITYU-WU-Cheng.github.io/phd-application/"
 languageCode: en-us
 build:
   writeStats: true
